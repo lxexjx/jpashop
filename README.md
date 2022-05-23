@@ -1,2 +1,2 @@
-# jpashop
+# jpa
 
