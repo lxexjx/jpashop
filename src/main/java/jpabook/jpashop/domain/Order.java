@@ -16,16 +16,20 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "member_id") //매핑을 뭘로 할건지 foreign key
     private Member member; //주문 회원
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    @OneToOne
+    @JoinColumn(name="delivery_id")
     private Delivery delivery;
 
     private LocalDateTime orderDate;    //주문시간
 
-    private OrderStatus status;     //주문상태
+    @Enumerated(EnumType.STRING)
+
+    private OrderStatus status;     //주문상태 ORDER, CAMCLE
 }
