@@ -31,6 +31,7 @@ public class Item {
     public void addStock(int quantity){
         this.stockquantity+=quantity;
     }
+
     public void removeStock(int quantity){
         int restStock = this.stockquantity-quantity;
         if(restStock<0){
@@ -38,5 +39,4 @@ public class Item {
         }
         this.stockquantity = restStock;
     }
-
 }
