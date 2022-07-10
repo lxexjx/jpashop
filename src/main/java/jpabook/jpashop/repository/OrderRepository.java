@@ -1,5 +1,6 @@
 package jpabook.jpashop.repository;
 
+import jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -22,10 +23,15 @@ public class OrderRepository {
     }
 
     public List<Order> findAll(OrderSearch orderSearch){
-        em.createQuery("select o from Order o join o.member m", Order.class);
+        return em.createQuery("select o from Order o join o.member m", Order.class).getResultList();
     }
 
     public List<Order> findAllWithMemberDelivery() {
         return em.createQuery("select o from Order o" + " join fetch o.member m" +  " join fetch o.delivery d", Order.class).getResultList();
+    }
+
+    public List<OrderSimpleQueryDto> findOrderDtos() {
+        return em.createQuery( "select new jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto(o.id, m.name, o.orderDate, o.status, d.address)" +
+                        " from Order o" + " join o.member m" + " join o.delivery d", OrderSimpleQueryDto.class).getResultList();
     }
 }
